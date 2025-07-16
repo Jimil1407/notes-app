@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+body {
+  background: #fff;
+  font-family: 'Poppins', 'Nunito', 'Inter', sans-serif;
+  color: #222;
+  min-height: 100vh;
+}
+
+html {
+  background: #fff;
+}
+
+/* Remove dark backgrounds from app containers */
+.app-container, .main-bg, .bg-black, .bg-gray-900 {
+  background: #fff !important;
+}
+
+/* Optional: Add a subtle pastel gradient to the very top */
+.app-gradient-top {
+  background: linear-gradient(90deg, #fffbe7 0%, #f7faff 100%);
+}
