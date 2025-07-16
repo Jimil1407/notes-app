@@ -6,7 +6,7 @@ export default function AppHeader({
   categories,
   activeCategory,
   setActiveCategory,
-  onAddNote
+  onAddNote 
 }: {
   selectedFolder: string;
   setSelectedFolder: (folder: string) => void;

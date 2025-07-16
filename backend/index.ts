@@ -180,6 +180,20 @@ app.put('/update/:id', authenticateToken, async (req: AuthenticatedRequest, res:
     }
 });
 
+app.get('/profile', authenticateToken, async (req: AuthenticatedRequest, res: Response) => {
+    const userId = req.user.userId;
+    const result = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
+    res.json(result.rows[0]);
+});
+
+
+app.get('/search/:query', authenticateToken, async (req: AuthenticatedRequest, res: Response) => {
+    const { query } = req.params;
+    const userId = req.user.userId;
+    const result = await pool.query('SELECT * FROM notes WHERE user_id = $1 AND title ILIKE $2', [userId, `%${query}%`]);
+    res.json(result.rows);
+});
+
 app.listen(3001, () => {
     console.log('Server is running on port 3001')
 })

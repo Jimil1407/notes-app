@@ -8,7 +8,7 @@ export default function AuthPage() {
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
-  const handleSignUp = async () => {
+  const handleSignUp = async () => {  
     setErrorMsg('');
     try {
       const res = await fetch('http://localhost:3001/signup', {
@@ -47,7 +47,6 @@ export default function AuthPage() {
     }
   };
 
-  // Ripple effect for buttons
   function createRipple(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target = e.currentTarget;
     const circle = document.createElement("span");
@@ -65,13 +64,11 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-2">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200 flex flex-col items-center animate-fade-in">
-        {/* Branding */}
         <div className="flex flex-col items-center mb-8">
           <span className="text-4xl font-extrabold text-blue-600 tracking-tight select-none">Likho</span>
           <span className="text-lg font-semibold text-gray-500">(लिखो)</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-gray-900">Welcome</h1>
-        {/* Mode Switch */}
         <div className="flex justify-center mb-8 gap-4 w-full">
           <button
             className={`flex-1 py-2 rounded-xl font-semibold transition-all duration-200 text-lg relative overflow-hidden ${mode === 'signup' ? 'bg-blue-100 text-blue-900 shadow border-2 border-blue-400' : 'bg-white text-gray-500 border border-gray-200 hover:bg-blue-50'}`}
@@ -88,13 +85,11 @@ export default function AuthPage() {
             Login
           </button>
         </div>
-        {/* Error Message */}
         {errorMsg && (
           <div className="mb-4 w-full text-center bg-red-100 text-red-700 border border-red-300 rounded p-2 font-semibold animate-fade-in">
             {errorMsg}
           </div>
         )}
-        {/* Form */}
         <form
           className="w-full flex flex-col gap-4 animate-fade-in"
           onSubmit={e => { e.preventDefault(); mode === 'signup' ? handleSignUp() : handleLogin(); }}
@@ -137,7 +132,6 @@ export default function AuthPage() {
             {mode === 'signup' ? 'Sign Up' : 'Login'}
           </button>
         </form>
-        {/* Switch Mode Link */}
         <div className="text-center mt-6 w-full">
           {mode === 'signup' ? (
             <>
@@ -167,7 +161,3 @@ export default function AuthPage() {
     </div>
   );
 }
-
-// Add this to your global CSS for ripple effect:
-// .ripple { position: absolute; border-radius: 50%; background: rgba(0,0,0,0.08); animation: ripple 0.5s linear; pointer-events: none; z-index: 10; }
-// @keyframes ripple { to { opacity: 0; transform: scale(2); } }

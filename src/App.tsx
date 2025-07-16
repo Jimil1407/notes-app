@@ -3,6 +3,7 @@ import ShowNotes from './components/shownotes'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AuthPage from './components/authPage'
 import { useState } from 'react'
+import SearchComponent from './components/searchnotes'
 
 function App() {
   const [selectedFolder, setSelectedFolder] = useState('Personal');
@@ -14,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <ShowNotes 
+          <ShowNotes
             selectedFolder={selectedFolder}
             setSelectedFolder={setSelectedFolder}
             categories={categories}
@@ -25,9 +26,10 @@ function App() {
           />
         } />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/search" element={<SearchComponent />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

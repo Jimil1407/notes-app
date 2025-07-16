@@ -11,15 +11,17 @@ interface AddNotesProps {
 const DEFAULT_CATEGORIES = ["Personal", "Work", "Fitness", "Other"];
 
 export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: AddNotesProps) {
+  // Filter out 'All' from categories if present
+  const filteredCategories = categories.filter(cat => cat !== 'All');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [notesState, setNotesState] = useRecoilState(notesAtom);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [category, setCategory] = useState(categories[0] || 'Personal');
+  const [category, setCategory] = useState(filteredCategories[0] || 'Personal');
   const [loading, setLoading] = useState(false);
 
-  // Ripple effect for button
+  
   function createRipple(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target = e.currentTarget;
     const circle = document.createElement("span");
@@ -34,7 +36,7 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
     target.appendChild(circle);
   }
 
-  // Handlers
+  
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     if (errorMsg) setErrorMsg('');
@@ -64,7 +66,7 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
       setNotesState(fetchResponse.data);
       setTitle('');
       setDescription('');
-      setCategory(categories[0] || 'Personal');
+      setCategory(filteredCategories[0] || 'Personal');
       setErrorMsg('');
       setSuccessMsg('Note added successfully!');
       setTimeout(() => setSuccessMsg(''), 2000);
@@ -97,9 +99,9 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
           {successMsg}
         </div>
       )}
-      {/* Form fields: two-column on md+ screens */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Category */}
+        
         <div className="flex flex-col gap-2">
           <label htmlFor="add-category" className="text-sm font-medium text-gray-700">Category</label>
           <select
@@ -108,12 +110,12 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
             onChange={handleCategoryChange}
             className="px-4 py-3 rounded-lg bg-white border-2 border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 transition font-poppins"
           >
-            {categories.map(cat => (
+            {filteredCategories.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
         </div>
-        {/* Title */}
+        
         <div className="flex flex-col gap-2">
           <label htmlFor="add-title" className="text-sm font-medium text-gray-700">Title</label>
           <input
@@ -125,7 +127,7 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
             className="px-4 py-3 rounded-lg bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition font-poppins focus:shadow-lg"
           />
         </div>
-        {/* Description (spans both columns on desktop) */}
+        
         <div className="flex flex-col gap-2 md:col-span-2">
           <label htmlFor="add-description" className="text-sm font-medium text-gray-700">Description</label>
           <textarea
@@ -138,7 +140,7 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
           />
         </div>
       </div>
-      {/* Add Note Button */}
+      
       <div className="flex flex-col md:flex-row md:justify-end gap-4 mt-2">
         <button
           type="submit"
@@ -152,7 +154,3 @@ export default function AddNotes({ onClose, categories = DEFAULT_CATEGORIES }: A
     </form>
   );
 }
-
-// Add this to your global CSS for ripple effect:
-// .ripple { position: absolute; border-radius: 50%; background: rgba(0,0,0,0.08); animation: ripple 0.5s linear; pointer-events: none; z-index: 10; }
-// @keyframes ripple { to { opacity: 0; transform: scale(2); } }
