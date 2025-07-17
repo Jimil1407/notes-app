@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
-import { useRecoilState, useRecoilValue } from "recoil"; // Import useRecoilValue
-import { notesAtom, searchQueryAtom, isSearchVisibleAtom } from "./recoil/atom"; // Import new atoms
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil"; 
+import { notesAtom, searchQueryAtom, isSearchVisibleAtom } from "./recoil/atom"; 
 import AddNotes from "./addnotes";
-import NoteCard from "./NoteCard"; // Assuming NoteCard is in the same directory
-import SearchComponent from "./searchnotes"; // Import the separate SearchComponent
+import NoteCard from "./NoteCard"; 
+import SearchComponent from "./searchnotes"; 
 import { Bell, Grid3X3, Menu } from "lucide-react";
+
 
 
 interface ShowNotesProps {
@@ -17,6 +18,7 @@ interface ShowNotesProps {
   showAddModal: boolean;
   setShowAddModal: (show: boolean) => void;
 }
+
 
 export default function ShowNotes({
   selectedFolder,
@@ -34,9 +36,8 @@ export default function ShowNotes({
   const [deletingIds, setDeletingIds] = useState<string[]>([]);
   const [user, setUser] = useState<any>(null);
 
-  // Recoil states for search
-  const searchQuery = useRecoilValue(searchQueryAtom); // Read the search query
-  const isSearchVisible = useRecoilValue(isSearchVisibleAtom); // Read search visibility
+  const searchQuery = useRecoilValue(searchQueryAtom); 
+  const isSearchVisible = useRecoilValue(isSearchVisibleAtom); 
 
   const pastelColors = [
     "bg-blue-100",
@@ -144,7 +145,6 @@ export default function ShowNotes({
     }
   };
 
-  // Determine which notes to display based on search and category
   const notesToConsider =
     isSearchVisible && searchQuery.length > 0
       ? notesState.filter(
@@ -167,7 +167,6 @@ export default function ShowNotes({
 
   return (
     <div className="min-h-screen w-full bg-white flex flex-col items-center">
-      {/* Navigation Bar */}
       <nav className="w-full flex items-center justify-between py-6 px-4 md:px-10 bg-white shadow-md rounded-b-3xl mb-8 sticky top-0 z-40 animate-fade-in">
         {/* Logo */}
         <div className="flex items-center gap-4">
@@ -208,7 +207,6 @@ export default function ShowNotes({
         </div>
       </nav>
 
-      {/* Main Content Area */}
       <div className="w-full max-w-7xl bg-white px-8 py-10 rounded-3xl shadow-2xl flex flex-col gap-8 animate-fade-in">
         {/* Header and Add Note Button */}
         <div className="flex items-center justify-between mb-2">
@@ -222,13 +220,12 @@ export default function ShowNotes({
             +
           </button>
         </div>
-
         {/* Folder Select and View Options */}
         <div className="flex items-center justify-between mb-4">
           <select
             value={selectedFolder}
             onChange={(e) => setSelectedFolder(e.target.value)}
-            className="bg-white px-6 py-3 rounded-lg text-base font-medium border-2 border-gray-200 outline-none shadow focus:ring-2 focus:ring-blue-400 transition"
+            className="bg-white px-6 py-3 rounded-lg text-base font-medium border-2 border-gray-200 text-gray-900 outline-none shadow focus:ring-2 focus:ring-blue-400 transition"
           >
             <option value="Personal">Personal</option>
             <option value="work">work</option>
@@ -240,7 +237,6 @@ export default function ShowNotes({
             <Menu className="w-6 h-6 text-gray-300" />
           </div>
         </div>        
-
         {/* Category Filters */}
         <div className="flex gap-3 flex-wrap justify-start md:justify-center relative">
           {categories.map((cat, i) => (
@@ -265,7 +261,6 @@ export default function ShowNotes({
           ))}
         </div>
 
-        {/* Loading and Success Messages */}
         {loading && (
           <div className="flex justify-center items-center my-12 animate-fade-in">
             <svg
@@ -299,7 +294,6 @@ export default function ShowNotes({
           </div>
         )}
 
-        {/* Notes Display Area */}
         <div className="py-10">
           {Object.entries(groupedNotes).length === 0 ||
           Object.values(groupedNotes).every((arr) => (arr as any[]).length === 0) ? (
@@ -372,7 +366,6 @@ export default function ShowNotes({
         </div>
       </div>
 
-      {/* Add Note Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-gray-200 bg-opacity-60 flex items-center justify-center z-50 p-4 animate-fade-in">
           <div className="bg-white rounded-3xl p-10 w-full max-w-lg md:max-w-2xl shadow-2xl">

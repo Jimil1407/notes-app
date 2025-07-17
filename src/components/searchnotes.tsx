@@ -15,7 +15,7 @@ export default function SearchComponent() {
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    
+
     // You might want to trigger the search immediately here or on Enter key
     // For now, let's just update the query in Recoil
   };
@@ -52,7 +52,7 @@ export default function SearchComponent() {
               placeholder="Search notes by title or description..."
               value={searchQuery}
               onChange={handleSearchInputChange}
-              onKeyPress={handleSearchKeyPress} // Use onKeyPress or onKeyDown
+                onKeyDown={handleSearchKeyPress} // Use onKeyPress or onKeyDown
               className="flex-1 p-2 outline-none text-base"
             />
             {/* The search button here would ideally trigger a fetch in a parent or ShowNotes */}

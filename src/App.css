@@ -1,19 +1,30 @@
 @import "tailwindcss";
 
+:root {
+  --bg: #fff;
+  --text: #222;
+}
+
+html.dark {
+  --bg: #18181b;
+  --text: #f3f4f6;
+}
+
 body {
-  background: #fff;
+  background: var(--bg);
+  color: var(--text);
   font-family: 'Poppins', 'Nunito', 'Inter', sans-serif;
-  color: #222;
   min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
 }
 
 html {
-  background: #fff;
+  background: var(--bg);
 }
 
 /* Remove dark backgrounds from app containers */
 .app-container, .main-bg, .bg-black, .bg-gray-900 {
-  background: #fff !important;
+  background: var(--bg) !important;
 }
 
 /* Optional: Add a subtle pastel gradient to the very top */

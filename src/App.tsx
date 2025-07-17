@@ -15,15 +15,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <ShowNotes
-            selectedFolder={selectedFolder}
-            setSelectedFolder={setSelectedFolder}
-            categories={categories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            showAddModal={showAddModal}
-            setShowAddModal={setShowAddModal}
-          />
+          <>  
+            <ShowNotes
+              selectedFolder={selectedFolder}
+              setSelectedFolder={setSelectedFolder}
+              categories={categories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              showAddModal={showAddModal}
+              setShowAddModal={setShowAddModal}
+            />
+          </>
         } />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/search" element={<SearchComponent />} />
